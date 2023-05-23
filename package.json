@@ -27,6 +27,8 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@types/react-resizable": "^3.0.4"
+    "@types/react-resizable": "^3.0.4",
+    "prettier": "^2.8.8",
+    "prettier-plugin-tailwindcss": "^0.3.0"
   }
 }

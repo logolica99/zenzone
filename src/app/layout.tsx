@@ -1,4 +1,6 @@
 import { AppContextProvider } from "./Contexts/AppContext";
+import AppBar from "./components/AppBar";
+
 import "./globals.css";
 import { Inter } from "next/font/google";
 
@@ -17,7 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AppContextProvider>{children}</AppContextProvider>
+        <AppContextProvider>
+          <AppBar />
+          {children}
+        </AppContextProvider>
       </body>
     </html>
   );
