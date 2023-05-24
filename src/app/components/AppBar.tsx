@@ -7,7 +7,7 @@ export default function AppBar() {
   const { appState } = useContext(AppContext);
   const [appActiveState, setAppActiveState] = appState;
 
-  let [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
 
   function openFeedbackModal() {
     setIsFeedbackModalOpen(true);
