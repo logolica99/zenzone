@@ -11,10 +11,6 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: "Zenzone",
-  description: "Unleash your zen mode!",
-};
 
 export default function RootLayout({
   children,
@@ -24,6 +20,8 @@ export default function RootLayout({
   const handle = useFullScreenHandle();
   return (
     <html lang="en">
+      <title>Zenzone</title>
+      <meta name="description" content="Unleash your Zen Mode!"/>
       <body className={inter.className}>
         <FullScreen handle={handle}>
           <AppContextProvider>
