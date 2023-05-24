@@ -1,44 +1,26 @@
 "use client";
-import { useContext } from "react";
+import React from "react";
+
 import ItemLayout from "./components/ItemLayout";
 import PomodoroComponent from "./components/Pomodoro";
-import { AppContext } from "./Contexts/AppContext";
 
 export default function Home() {
-  const { appState } = useContext(AppContext);
-  const [appActiveState, setAppActiveState] = appState;
   return (
     <main className="relative flex min-h-screen items-center justify-center bg-zinc-900">
-      <ItemLayout
-        title={"timer"}
-        resizable={false}
-        hidden={!appActiveState.timer}
-      >
+      <ItemLayout title={"timer"} resizable={false}>
         <PomodoroComponent />
       </ItemLayout>
 
-      <ItemLayout
-        title={"media"}
-        resizable={true}
-        hidden={!appActiveState.media}
-      >
+      <ItemLayout title={"media"} resizable={true}>
         <div></div>
       </ItemLayout>
-      <ItemLayout
-        title={"notes"}
-        resizable={true}
-        hidden={!appActiveState.notes}
-      >
+      <ItemLayout title={"notes"} resizable={true}>
         <div></div>
       </ItemLayout>
-      <ItemLayout title={"todo"} resizable={true} hidden={!appActiveState.todo}>
+      <ItemLayout title={"todo"} resizable={true}>
         <div></div>
       </ItemLayout>
-      <ItemLayout
-        title={"files"}
-        resizable={true}
-        hidden={!appActiveState.files}
-      >
+      <ItemLayout title={"files"} resizable={true}>
         <div></div>
       </ItemLayout>
 
@@ -47,6 +29,7 @@ export default function Home() {
         <a
           href="https://github.com/logolica99"
           target="_blank"
+          rel="noreferrer"
           className=" text-primary"
         >
           Jubaer Jami

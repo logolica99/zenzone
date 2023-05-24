@@ -1,7 +1,10 @@
+"use client";
+
 import React from "react";
 import { AppContextProvider } from "./Contexts/AppContext";
 import AppBar from "./components/AppBar";
 import Nav from "./components/Nav";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 import "./globals.css";
 import { Inter } from "next/font/google";
@@ -18,14 +21,17 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const handle = useFullScreenHandle();
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AppContextProvider>
-          <Nav />
-          <AppBar />
-          {children}
-        </AppContextProvider>
+        <FullScreen handle={handle}>
+          <AppContextProvider>
+            <Nav handle={handle} />
+            <AppBar />
+            {children}
+          </AppContextProvider>
+        </FullScreen>
       </body>
     </html>
   );

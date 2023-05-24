@@ -1,4 +1,4 @@
-import React, { FormEventHandler } from "react";
+import React from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
@@ -64,6 +64,7 @@ export default function FeedbackModal({ isOpen, setOpen }: IpropType) {
                         <a
                           href="https://github.com/logolica99"
                           target="_blank"
+                          rel="noreferrer"
                           className="text-primary focus:outline-none"
                         >
                           Jubaer Jami

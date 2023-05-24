@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { FullScreenHandle } from "react-full-screen";
 
-export default function Nav() {
+export default function Nav({ handle }: { handle: FullScreenHandle }) {
   const [roomName, setRoomName] = useState("Jane's Room");
   const [roomNameChangeActive, setRoomNameChangeActive] = useState(false);
 
@@ -47,8 +48,8 @@ export default function Nav() {
                 y2="82.5"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="#FCD635" />
-                <stop offset="1" stop-color="#F7A928" />
+                <stop stopColor="#FCD635" />
+                <stop offset="1" stopColor="#F7A928" />
               </linearGradient>
             </defs>
           </svg>
@@ -130,58 +131,93 @@ export default function Nav() {
             />
           </svg>
         </div>
-        <div
-          className="cursor-pointer rounded px-2 py-1 transition duration-150 ease-in-out hover:bg-zinc-200/20  active:opacity-60"
-          title={
-            document.fullscreenElement === null
-              ? "Go fullscreen"
-              : "Exit fullscreen"
-          }
-          onClick={() => {
-            if (document.fullscreenElement === null) {
-              document.body.requestFullscreen();
-            } else {
-              document?.exitFullscreen();
-            }
-          }}
-        >
-          <svg
-            width="19"
-            height="19"
-            viewBox="0 0 19 19"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+        {handle.active ? (
+          <div
+            className="cursor-pointer rounded px-2 py-1 transition duration-150 ease-in-out hover:bg-zinc-200/20  active:opacity-60"
+            title="Exit fullscreen"
+            onClick={handle.exit}
           >
-            <path
-              d="M6.39195 18.0379H0.482422V12.1514"
-              stroke="#F7A928"
-              stroke-miterlimit="10"
-            />
-            <path
-              d="M0.48584 18.0312L9.67334 8.84375L0.48584 18.0312Z"
-              fill="#010101"
-            />
-            <path
-              d="M0.48584 18.0312L9.67334 8.84375"
-              stroke="#F7A928"
-              stroke-miterlimit="10"
-            />
-            <path
-              d="M11.6548 0.961914H17.5643V6.8452"
-              stroke="#F7A928"
-              stroke-miterlimit="10"
-            />
-            <path
-              d="M17.561 0.96875L9.68604 8.84375L17.561 0.96875Z"
-              fill="#010101"
-            />
-            <path
-              d="M17.561 0.96875L9.68604 8.84375"
-              stroke="#F7A928"
-              stroke-miterlimit="10"
-            />
-          </svg>
-        </div>
+            <svg
+              width="19"
+              height="19"
+              viewBox="0 0 19 19"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6.39195 18.0379H0.482422V12.1514"
+                stroke="#F7A928"
+                strokeMiterlimit="10"
+              />
+              <path
+                d="M0.48584 18.0312L9.67334 8.84375L0.48584 18.0312Z"
+                fill="#010101"
+              />
+              <path
+                d="M0.48584 18.0312L9.67334 8.84375"
+                stroke="#F7A928"
+                strokeMiterlimit="10"
+              />
+              <path
+                d="M11.6548 0.961914H17.5643V6.8452"
+                stroke="#F7A928"
+                strokeMiterlimit="10"
+              />
+              <path
+                d="M17.561 0.96875L9.68604 8.84375L17.561 0.96875Z"
+                fill="#010101"
+              />
+              <path
+                d="M17.561 0.96875L9.68604 8.84375"
+                stroke="#F7A928"
+                strokeMiterlimit="10"
+              />
+            </svg>
+          </div>
+        ) : (
+          <div
+            className="cursor-pointer rounded px-2 py-1 transition duration-150 ease-in-out hover:bg-zinc-200/20  active:opacity-60"
+            title="Go fullscreen"
+            onClick={handle.enter}
+          >
+            <svg
+              width="19"
+              height="19"
+              viewBox="0 0 19 19"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6.39195 18.0379H0.482422V12.1514"
+                stroke="#F7A928"
+                strokeMiterlimit="10"
+              />
+              <path
+                d="M0.48584 18.0312L9.67334 8.84375L0.48584 18.0312Z"
+                fill="#010101"
+              />
+              <path
+                d="M0.48584 18.0312L9.67334 8.84375"
+                stroke="#F7A928"
+                strokeMiterlimit="10"
+              />
+              <path
+                d="M11.6548 0.961914H17.5643V6.8452"
+                stroke="#F7A928"
+                strokeMiterlimit="10"
+              />
+              <path
+                d="M17.561 0.96875L9.68604 8.84375L17.561 0.96875Z"
+                fill="#010101"
+              />
+              <path
+                d="M17.561 0.96875L9.68604 8.84375"
+                stroke="#F7A928"
+                strokeMiterlimit="10"
+              />
+            </svg>
+          </div>
+        )}
         <div className="border-l-2 border-zinc-700 pl-3">
           <div className=" cursor-pointer rounded px-2 py-1 transition duration-150 ease-in-out hover:bg-zinc-200/20  active:opacity-60">
             <svg

@@ -12,7 +12,7 @@ interface IpropType {
   title: string;
   children: React.ReactNode;
   resizable: boolean;
-  hidden: boolean;
+
 }
 type Position = {
   xRate: number;
@@ -31,7 +31,7 @@ export default function ItemLayout({
   title,
   children,
   resizable = false,
-  hidden,
+
 }: IpropType) {
   const [currentPosition, setCurrentPosition] = useState<Position>({
     xRate: 0,
@@ -110,10 +110,10 @@ export default function ItemLayout({
                 <path
                   d="M22 14.5H7"
                   stroke="#F7A928"
-                  stroke-width="2"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                 strokeMiterlimit="10"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </div>
