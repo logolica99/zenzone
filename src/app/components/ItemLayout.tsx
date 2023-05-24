@@ -121,7 +121,7 @@ export default function ItemLayout({
               width={400}
               height={400}
               minConstraints={[400, 300]}
-              maxConstraints={[800, 600]}
+              maxConstraints={[1000, 900]}
             >
               <div className="h-full px-3 py-3">{children}</div>
             </ResizableBox>

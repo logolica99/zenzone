@@ -4,6 +4,7 @@ import React from "react";
 import ItemLayout from "./components/ItemLayout";
 import PomodoroComponent from "./components/Pomodoro";
 import MediaComponent from "./components/MediaComponent";
+import FilesComponent from "./components/FilesComponent";
 
 export default function Home() {
   return (
@@ -22,7 +23,7 @@ export default function Home() {
         <div></div>
       </ItemLayout>
       <ItemLayout title={"files"} resizable={true}>
-        <div></div>
+        <FilesComponent />
       </ItemLayout>
 
       <div className="absolute bottom-0 left-0 right-0 p-4 text-center text-zinc-400">

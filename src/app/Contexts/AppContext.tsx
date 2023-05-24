@@ -34,7 +34,7 @@ export const AppContext = createContext<IAppContext>({
   appState: [
     {
       timer: false,
-      media: true,
+      media: false,
       files: false,
       todo: false,
       notes: false,
@@ -60,7 +60,7 @@ export const AppContextProvider = ({
 
   const [appActiveState, setAppActiveState] = useState({
     timer: false,
-    media: true,
+    media: false,
     files: false,
     todo: false,
     notes: false,
