@@ -1,4 +1,4 @@
-export function capitalizeFirstLetter(str: String): String {
+export function capitalizeFirstLetter(str: string): string {
     if (str.length === 0) {
       return str; // Skip empty strings
     }

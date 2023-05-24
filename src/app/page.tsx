@@ -9,7 +9,7 @@ export default function Home() {
   const [appActiveState, setAppActiveState] = appState;
   return (
     <main className="relative flex min-h-screen items-center justify-center bg-zinc-900">
-      {/* <ItemLayout
+      <ItemLayout
         title={"timer"}
         resizable={false}
         hidden={!appActiveState.timer}
@@ -40,7 +40,7 @@ export default function Home() {
         hidden={!appActiveState.files}
       >
         <div></div>
-      </ItemLayout> */}
+      </ItemLayout>
 
       <div className="absolute bottom-0 left-0 right-0 p-4 text-center text-zinc-400">
         Made with 💖 by{" "}

@@ -1,3 +1,4 @@
+import React from "react";
 import { AppContextProvider } from "./Contexts/AppContext";
 import AppBar from "./components/AppBar";
 import Nav from "./components/Nav";
