@@ -3,6 +3,7 @@ import React from "react";
 
 import ItemLayout from "./components/ItemLayout";
 import PomodoroComponent from "./components/Pomodoro";
+import MediaComponent from "./components/MediaComponent";
 
 export default function Home() {
   return (
@@ -12,7 +13,7 @@ export default function Home() {
       </ItemLayout>
 
       <ItemLayout title={"media"} resizable={true}>
-        <div></div>
+        <MediaComponent />
       </ItemLayout>
       <ItemLayout title={"notes"} resizable={true}>
         <div></div>

@@ -12,7 +12,6 @@ interface IpropType {
   title: string;
   children: React.ReactNode;
   resizable: boolean;
-
 }
 type Position = {
   xRate: number;
@@ -31,7 +30,6 @@ export default function ItemLayout({
   title,
   children,
   resizable = false,
-
 }: IpropType) {
   const [currentPosition, setCurrentPosition] = useState<Position>({
     xRate: 0,
@@ -111,7 +109,7 @@ export default function ItemLayout({
                   d="M22 14.5H7"
                   stroke="#F7A928"
                   strokeWidth="2"
-                 strokeMiterlimit="10"
+                  strokeMiterlimit="10"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
@@ -120,12 +118,12 @@ export default function ItemLayout({
           </div>
           {resizable ? (
             <ResizableBox
-              width={300}
-              height={300}
-              minConstraints={[150, 150]}
-              maxConstraints={[800, 800]}
+              width={400}
+              height={400}
+              minConstraints={[400, 300]}
+              maxConstraints={[800, 600]}
             >
-              <div className="px-3">{children}</div>
+              <div className="h-full px-3 py-3">{children}</div>
             </ResizableBox>
           ) : (
             <div className="px-3">{children}</div>
