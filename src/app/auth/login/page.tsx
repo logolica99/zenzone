@@ -10,12 +10,13 @@ import { useRouter } from "next/navigation";
 export default function LoginPage() {
   const router = useRouter();
   useEffect(() => {
-    axios.get("http://localhost:3000/api/auth/session").then((res) => {
+    axios.get(`${process.env.NEXT_PUBLIC_URL}/api/auth/session`).then((res) => {
       if (res.data.user) {
         router.push("/room/test_room");
       }
     });
   }, []);
+
   return (
     <main className="relative flex min-h-screen flex-col items-center gap-8 bg-zinc-900 pt-40 md:pt-52">
       <Link href="/">
