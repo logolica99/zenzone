@@ -4,8 +4,9 @@ import { AppContext } from "../Contexts/AppContext";
 import FeedbackModal from "./FeedbackModal";
 
 export default function AppBar() {
-  const { appState } = useContext(AppContext);
+  const { appIndex, appState } = useContext(AppContext);
   const [appActiveState, setAppActiveState] = appState;
+  const [apps, setApps] = appIndex;
 
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
 
@@ -26,12 +27,16 @@ export default function AppBar() {
         <div className="flex flex-col items-center gap-5 ">
           <div
             className="relative flex w-full cursor-pointer flex-col items-center rounded-md  py-1  transition duration-150 ease-in-out hover:bg-zinc-200/20"
-            onClick={() =>
+            onClick={() => {
               setAppActiveState({
                 ...appActiveState,
                 timer: !appActiveState.timer,
-              })
-            }
+              });
+              setApps({
+                ...apps,
+                timer: Math.max(...Object.values(apps)) + 1,
+              });
+            }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -56,12 +61,16 @@ export default function AppBar() {
           </div>
           <div
             className="relative flex w-full cursor-pointer flex-col items-center rounded-md  py-1  transition duration-150 ease-in-out hover:bg-zinc-200/20"
-            onClick={() =>
+            onClick={() => {
               setAppActiveState({
                 ...appActiveState,
                 media: !appActiveState.media,
-              })
-            }
+              });
+              setApps({
+                ...apps,
+                media: Math.max(...Object.values(apps)) + 1,
+              });
+            }}
           >
             <svg
               width="24"
@@ -102,12 +111,16 @@ export default function AppBar() {
           </div>
           <div
             className="relative flex w-full cursor-pointer flex-col items-center rounded-md  py-1  transition duration-150 ease-in-out hover:bg-zinc-200/20"
-            onClick={() =>
+            onClick={() => {
               setAppActiveState({
                 ...appActiveState,
                 files: !appActiveState.files,
-              })
-            }
+              });
+              setApps({
+                ...apps,
+                files: Math.max(...Object.values(apps)) + 1,
+              });
+            }}
           >
             <svg
               width="24"
@@ -156,12 +169,17 @@ export default function AppBar() {
           </div>
           <div
             className="relative flex w-full cursor-pointer flex-col items-center rounded-md  py-1  transition duration-150 ease-in-out hover:bg-zinc-200/20"
-            onClick={() =>
+            onClick={() => {
               setAppActiveState({
                 ...appActiveState,
                 todo: !appActiveState.todo,
-              })
-            }
+              });
+
+              setApps({
+                ...apps,
+                todo: Math.max(...Object.values(apps)) + 1,
+              });
+            }}
           >
             <svg
               width="24"
@@ -190,12 +208,16 @@ export default function AppBar() {
           </div>
           <div
             className="relative flex w-full cursor-pointer flex-col items-center rounded-md  py-1  transition duration-150 ease-in-out hover:bg-zinc-200/20"
-            onClick={() =>
+            onClick={() => {
               setAppActiveState({
                 ...appActiveState,
                 notes: !appActiveState.notes,
-              })
-            }
+              });
+              setApps({
+                ...apps,
+                notes: Math.max(...Object.values(apps)) + 1,
+              });
+            }}
           >
             <svg
               width="24"
@@ -224,12 +246,16 @@ export default function AppBar() {
           </div>
           <div
             className="relative flex  w-full cursor-pointer flex-col items-center rounded-md  py-1  transition duration-150 ease-in-out hover:bg-zinc-200/20"
-            onClick={() =>
+            onClick={() => {
               setAppActiveState({
                 ...appActiveState,
-                calender: !appActiveState.calender,
-              })
-            }
+                calendar: !appActiveState.calendar,
+              });
+              setApps({
+                ...apps,
+                calendar: Math.max(...Object.values(apps)) + 1,
+              });
+            }}
           >
             <svg
               width="24"
@@ -240,113 +266,113 @@ export default function AppBar() {
             >
               <path
                 d="M12.9642 3.26484V0.796875C12.9642 0.564844 12.7743 0.375 12.5423 0.375C12.3103 0.375 12.1204 0.564844 12.1204 0.796875V3.26484C11.7829 3.43359 11.5298 3.77109 11.5298 4.17188C11.5298 4.72031 11.9728 5.18437 12.5423 5.18437C13.1118 5.18437 13.5548 4.72031 13.5548 4.17188C13.5548 3.77109 13.3228 3.4125 12.9642 3.26484ZM19.2923 3.26484V0.796875C19.2923 0.564844 19.1024 0.375 18.8704 0.375C18.6384 0.375 18.4485 0.564844 18.4485 0.796875V3.26484C18.111 3.43359 17.8579 3.77109 17.8579 4.17188C17.8579 4.72031 18.3009 5.18437 18.8704 5.18437C19.4399 5.18437 19.8829 4.72031 19.8829 4.17188C19.8829 3.77109 19.6509 3.4125 19.2923 3.26484ZM7.05791 1.85156H11.6985V2.69531H7.05791V1.85156ZM13.386 1.85156H18.0267V2.69531H13.386V1.85156ZM6.63604 3.26484V0.796875C6.63604 0.564844 6.44619 0.375 6.21416 0.375C5.98213 0.375 5.79229 0.564844 5.79229 0.796875V3.26484C5.45479 3.43359 5.20166 3.77109 5.20166 4.17188C5.20166 4.72031 5.64463 5.18437 6.21416 5.18437C6.78369 5.18437 7.22666 4.72031 7.22666 4.17188C7.22666 3.77109 6.99463 3.4125 6.63604 3.26484Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M22.4141 1.85156H19.6719V2.69531H22.4141C23.1102 2.69531 23.6797 3.26484 23.6797 3.96094V6.28125H1.32031V3.96094C1.32031 3.26484 1.88984 2.69531 2.58594 2.69531H5.32812V1.85156H2.58594C1.42578 1.85156 0.476562 2.80078 0.476562 3.96094V17.8828C0.476562 19.043 1.42578 19.9922 2.58594 19.9922H22.4141C23.5742 19.9922 24.5234 19.043 24.5234 17.8828V3.96094C24.5234 2.80078 23.5742 1.85156 22.4141 1.85156ZM22.4141 19.1484H2.58594C1.88984 19.1484 1.32031 18.5789 1.32031 17.8828V7.125H23.6797V17.8828C23.6797 18.5789 23.1102 19.1484 22.4141 19.1484Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M9.75786 10.3521C10.1423 10.3521 10.454 10.0405 10.454 9.65605C10.454 9.27161 10.1423 8.95996 9.75786 8.95996C9.37342 8.95996 9.06177 9.27161 9.06177 9.65605C9.06177 10.0405 9.37342 10.3521 9.75786 10.3521Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M7.18437 10.3521C7.56882 10.3521 7.88047 10.0405 7.88047 9.65605C7.88047 9.27161 7.56882 8.95996 7.18437 8.95996C6.79993 8.95996 6.48828 9.27161 6.48828 9.65605C6.48828 10.0405 6.79993 10.3521 7.18437 10.3521Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M20.0516 10.3521C20.436 10.3521 20.7477 10.0405 20.7477 9.65605C20.7477 9.27161 20.436 8.95996 20.0516 8.95996C19.6671 8.95996 19.3555 9.27161 19.3555 9.65605C19.3555 10.0405 19.6671 10.3521 20.0516 10.3521Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M4.61089 12.6939C4.99533 12.6939 5.30698 12.3823 5.30698 11.9979C5.30698 11.6134 4.99533 11.3018 4.61089 11.3018C4.22645 11.3018 3.91479 11.6134 3.91479 11.9979C3.91479 12.3823 4.22645 12.6939 4.61089 12.6939Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M7.18437 12.6939C7.56882 12.6939 7.88047 12.3823 7.88047 11.9979C7.88047 11.6134 7.56882 11.3018 7.18437 11.3018C6.79993 11.3018 6.48828 11.6134 6.48828 11.9979C6.48828 12.3823 6.79993 12.6939 7.18437 12.6939Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M9.75786 12.6939C10.1423 12.6939 10.454 12.3823 10.454 11.9979C10.454 11.6134 10.1423 11.3018 9.75786 11.3018C9.37342 11.3018 9.06177 11.6134 9.06177 11.9979C9.06177 12.3823 9.37342 12.6939 9.75786 12.6939Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M12.3313 12.6939C12.7158 12.6939 13.0274 12.3823 13.0274 11.9979C13.0274 11.6134 12.7158 11.3018 12.3313 11.3018C11.9469 11.3018 11.6353 11.6134 11.6353 11.9979C11.6353 12.3823 11.9469 12.6939 12.3313 12.6939Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M14.9046 12.6939C15.289 12.6939 15.6007 12.3823 15.6007 11.9979C15.6007 11.6134 15.289 11.3018 14.9046 11.3018C14.5201 11.3018 14.2085 11.6134 14.2085 11.9979C14.2085 12.3823 14.5201 12.6939 14.9046 12.6939Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M17.4571 12.6939C17.8415 12.6939 18.1532 12.3823 18.1532 11.9979C18.1532 11.6134 17.8415 11.3018 17.4571 11.3018C17.0726 11.3018 16.761 11.6134 16.761 11.9979C16.761 12.3823 17.0726 12.6939 17.4571 12.6939Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M7.18437 15.0562C7.56882 15.0562 7.88047 14.7446 7.88047 14.3602C7.88047 13.9757 7.56882 13.6641 7.18437 13.6641C6.79993 13.6641 6.48828 13.9757 6.48828 14.3602C6.48828 14.7446 6.79993 15.0562 7.18437 15.0562Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M9.75786 15.0562C10.1423 15.0562 10.454 14.7446 10.454 14.3602C10.454 13.9757 10.1423 13.6641 9.75786 13.6641C9.37342 13.6641 9.06177 13.9757 9.06177 14.3602C9.06177 14.7446 9.37342 15.0562 9.75786 15.0562Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M12.3313 15.0562C12.7158 15.0562 13.0274 14.7446 13.0274 14.3602C13.0274 13.9757 12.7158 13.6641 12.3313 13.6641C11.9469 13.6641 11.6353 13.9757 11.6353 14.3602C11.6353 14.7446 11.9469 15.0562 12.3313 15.0562Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M14.9046 15.0562C15.289 15.0562 15.6007 14.7446 15.6007 14.3602C15.6007 13.9757 15.289 13.6641 14.9046 13.6641C14.5201 13.6641 14.2085 13.9757 14.2085 14.3602C14.2085 14.7446 14.5201 15.0562 14.9046 15.0562Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M17.4571 15.0562C17.8415 15.0562 18.1532 14.7446 18.1532 14.3602C18.1532 13.9757 17.8415 13.6641 17.4571 13.6641C17.0726 13.6641 16.761 13.9757 16.761 14.3602C16.761 14.7446 17.0726 15.0562 17.4571 15.0562Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M12.3313 10.4156C12.7158 10.4156 13.0274 10.104 13.0274 9.71953C13.0274 9.33509 12.7158 9.02344 12.3313 9.02344C11.9469 9.02344 11.6353 9.33509 11.6353 9.71953C11.6353 10.104 11.9469 10.4156 12.3313 10.4156Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M14.9046 10.4156C15.289 10.4156 15.6007 10.104 15.6007 9.71953C15.6007 9.33509 15.289 9.02344 14.9046 9.02344C14.5201 9.02344 14.2085 9.33509 14.2085 9.71953C14.2085 10.104 14.5201 10.4156 14.9046 10.4156Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M17.4571 10.4156C17.8415 10.4156 18.1532 10.104 18.1532 9.71953C18.1532 9.33509 17.8415 9.02344 17.4571 9.02344C17.0726 9.02344 16.761 9.33509 16.761 9.71953C16.761 10.104 17.0726 10.4156 17.4571 10.4156Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M20.0306 12.6939C20.415 12.6939 20.7267 12.3823 20.7267 11.9979C20.7267 11.6134 20.415 11.3018 20.0306 11.3018C19.6461 11.3018 19.3345 11.6134 19.3345 11.9979C19.3345 12.3823 19.6461 12.6939 20.0306 12.6939Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M20.0516 15.0562C20.436 15.0562 20.7477 14.7446 20.7477 14.3602C20.7477 13.9757 20.436 13.6641 20.0516 13.6641C19.6671 13.6641 19.3555 13.9757 19.3555 14.3602C19.3555 14.7446 19.6671 15.0562 20.0516 15.0562Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M4.61089 14.9723C4.99533 14.9723 5.30698 14.6606 5.30698 14.2762C5.30698 13.8917 4.99533 13.5801 4.61089 13.5801C4.22645 13.5801 3.91479 13.8917 3.91479 14.2762C3.91479 14.6606 4.22645 14.9723 4.61089 14.9723Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M4.61089 17.2711C4.99533 17.2711 5.30698 16.9594 5.30698 16.575C5.30698 16.1906 4.99533 15.8789 4.61089 15.8789C4.22645 15.8789 3.91479 16.1906 3.91479 16.575C3.91479 16.9594 4.22645 17.2711 4.61089 17.2711Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M7.18437 17.2711C7.56882 17.2711 7.88047 16.9594 7.88047 16.575C7.88047 16.1906 7.56882 15.8789 7.18437 15.8789C6.79993 15.8789 6.48828 16.1906 6.48828 16.575C6.48828 16.9594 6.79993 17.2711 7.18437 17.2711Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M9.75786 17.2711C10.1423 17.2711 10.454 16.9594 10.454 16.575C10.454 16.1906 10.1423 15.8789 9.75786 15.8789C9.37342 15.8789 9.06177 16.1906 9.06177 16.575C9.06177 16.9594 9.37342 17.2711 9.75786 17.2711Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
               <path
                 d="M12.3313 17.2711C12.7158 17.2711 13.0274 16.9594 13.0274 16.575C13.0274 16.1906 12.7158 15.8789 12.3313 15.8789C11.9469 15.8789 11.6353 16.1906 11.6353 16.575C11.6353 16.9594 11.9469 17.2711 12.3313 17.2711Z"
-                fill={`${appActiveState.calender ? "#F7A928" : "#a9a9a9"}`}
+                fill={`${appActiveState.calendar ? "#F7A928" : "#a9a9a9"}`}
               />
             </svg>
 
             <p
               className={`${
-                appActiveState.calender ? "text-primary" : "text-zinc-400"
+                appActiveState.calendar ? "text-primary" : "text-zinc-400"
               } text-xs`}
             >
               Calendar

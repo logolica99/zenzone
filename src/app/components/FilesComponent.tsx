@@ -4,42 +4,24 @@ import PdfViewer from "./PdfViewer";
 
 export default function FilesComponent() {
   const [driveUrl, setDriveUrl] = useState("");
-  const [validUrl, setValidUrl] = useState(true);
-  const [driveLoadableUrl, setLoadableUrl] = useState("");
-
-  const isDriveValid = (url: string) => {
-    if (url) {
-      return true;
-    }
-    return true;
-  };
 
   return (
     <div className="flex h-full  flex-col justify-between gap-3">
-      {driveLoadableUrl.length > 0 ? (
-        validUrl ? (
-          <PdfViewer
-            // ref={playerRef}
-            url={driveUrl}
-          />
-        ) : (
-          <div className="flex h-full items-center justify-center rounded-md border border-zinc-700 text-zinc-400">
-            Please enter a valid Youtube link!
-          </div>
-        )
+      {driveUrl.length > 0 ? (
+        <PdfViewer
+          // ref={playerRef}
+          url={driveUrl}
+        />
       ) : (
         <div className="flex h-full items-center justify-center rounded-md border border-zinc-700 text-zinc-400">
           {" "}
-          Your playable Video will appear here!
+          Your PDF will appear here!
         </div>
       )}
 
-      {/* <button onClick={handleSeekClick}>seek</button> */}
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          setLoadableUrl(driveUrl);
-          setValidUrl(isDriveValid(driveUrl));
         }}
       >
         <div className="flex items-center justify-between gap-3">
@@ -50,7 +32,7 @@ export default function FilesComponent() {
             onChange={(e) => setDriveUrl(e.target.value)}
           />
           <button
-            className="group flex cursor-pointer items-center justify-center rounded-full py-1 px-6 ring-1 ring-primary"
+            className="group flex cursor-pointer items-center justify-center rounded-full px-6 py-1 ring-1 ring-primary"
             type="submit"
           >
             <svg

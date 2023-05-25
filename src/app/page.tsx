@@ -16,11 +16,20 @@ export default function Home() {
       <ItemLayout title={"media"} resizable={true}>
         <MediaComponent />
       </ItemLayout>
-      <ItemLayout title={"notes"} resizable={true}>
-        <div></div>
+      <ItemLayout title={"notes"} resizable={false}>
+        <div className="my-3 flex h-[300px] w-[300px]  flex-col items-center justify-center rounded-md border border-zinc-700 text-primary">
+          <p>Coming soon!</p>
+        </div>
       </ItemLayout>
-      <ItemLayout title={"todo"} resizable={true}>
-        <div></div>
+      <ItemLayout title={"todo"} resizable={false}>
+        <div className="my-3 flex h-[300px] w-[300px]  flex-col items-center justify-center rounded-md border border-zinc-700 text-primary">
+          <p>Coming soon!</p>
+        </div>
+      </ItemLayout>
+      <ItemLayout title={"calendar"} resizable={false}>
+        <div className="my-3 flex h-[300px] w-[300px]  flex-col items-center justify-center rounded-md border border-zinc-700 text-primary">
+          <p>Coming soon!</p>
+        </div>
       </ItemLayout>
       <ItemLayout title={"files"} resizable={true}>
         <FilesComponent />

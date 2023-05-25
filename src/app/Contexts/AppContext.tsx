@@ -7,7 +7,7 @@ export type IApps = {
   files: number;
   todo: number;
   notes: number;
-  calender: number;
+  calendar: number;
 };
 export type IAppsActiveState = {
   timer: boolean;
@@ -15,7 +15,7 @@ export type IAppsActiveState = {
   files: boolean;
   todo: boolean;
   notes: boolean;
-  calender: boolean;
+  calendar: boolean;
 };
 
 type IAppContext = {
@@ -28,7 +28,7 @@ type IAppContext = {
 
 export const AppContext = createContext<IAppContext>({
   appIndex: [
-    { timer: 6, media: 7, files: 8, todo: 9, notes: 10, calender: 11 },
+    { timer: 6, media: 7, files: 8, todo: 9, notes: 10, calendar: 11 },
     () => null,
   ],
   appState: [
@@ -38,7 +38,7 @@ export const AppContext = createContext<IAppContext>({
       files: false,
       todo: false,
       notes: false,
-      calender: false,
+      calendar: false,
     },
     () => null,
   ],
@@ -55,7 +55,7 @@ export const AppContextProvider = ({
     files: 8,
     todo: 9,
     notes: 10,
-    calender: 11,
+    calendar: 11,
   });
 
   const [appActiveState, setAppActiveState] = useState({
@@ -64,7 +64,7 @@ export const AppContextProvider = ({
     files: false,
     todo: false,
     notes: false,
-    calender: false,
+    calendar: false,
   });
 
   return (
