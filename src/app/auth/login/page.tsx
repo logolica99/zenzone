@@ -1,18 +1,21 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 
 import { signIn, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const { data: session } = useSession();
-const something =true
-  if (something) {
-    
-    redirect("/room/test_room/");
-  }
-
+  const router = useRouter();
+  useEffect(() => {
+    axios.get("http://localhost:3000/api/auth/session").then((res) => {
+      if (res.data.user) {
+        router.push("/room/test_room");
+      }
+    });
+  }, []);
   return (
     <main className="relative flex min-h-screen flex-col items-center gap-8 bg-zinc-900 pt-40 md:pt-52">
       <Link href="/">
@@ -60,7 +63,6 @@ const something =true
         </div>
       </Link>
 
-      {session?.user && "logged in "}
       <div
         className="rounded-lg border border-zinc-700 bg-zinc-800 p-6 text-center text-zinc-400 shadow"
         onClick={() => {
