@@ -5,7 +5,7 @@ import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@emotion/react";
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import { ResizableBox } from "react-resizable";
-import { AppContext, IApps } from "../Contexts/AppContext";
+import { AppContext, IApps } from "../../../Contexts/AppContext";
 import { capitalizeFirstLetter } from "../helper";
 
 interface IpropType {
@@ -121,7 +121,7 @@ export default function ItemLayout({
               width={400}
               height={400}
               minConstraints={[400, 300]}
-              maxConstraints={[1000, 900]}
+              maxConstraints={[1000, 800]}
             >
               <div className="h-full px-3 py-3">{children}</div>
             </ResizableBox>
