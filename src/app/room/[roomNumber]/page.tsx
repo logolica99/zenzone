@@ -67,7 +67,7 @@ export default function Rooms({
         </a>
         <button
           onClick={() => {
-            signOut(auth).then(() => {});
+            signOut(auth);
           }}
         >
           logout
