@@ -15,7 +15,7 @@ export default function FilesComponent() {
       ) : (
         <div className="flex h-full items-center justify-center rounded-md border border-zinc-700 text-zinc-400">
           {" "}
-          Your PDF will appear here!
+        Your Drive content will appear here!
         </div>
       )}
 
@@ -27,7 +27,7 @@ export default function FilesComponent() {
         <div className="flex items-center justify-between gap-3">
           <input
             className="flex-1 rounded-md border border-zinc-700 bg-transparent px-2 py-1 text-zinc-400 focus:outline-none"
-            placeholder="Enter Drive PDF URL  here"
+            placeholder="Enter Drive content URL  here"
             value={driveUrl}
             onChange={(e) => setDriveUrl(e.target.value)}
           />

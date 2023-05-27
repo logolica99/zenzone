@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext, useState } from "react";
-import { AppContext } from "../Contexts/AppContext";
+import { AppContext } from "../../../Contexts/AppContext";
 import FeedbackModal from "./FeedbackModal";
 
 export default function AppBar() {
@@ -22,7 +22,7 @@ export default function AppBar() {
       />
       <div
         className="absolute left-4 mt-[10vh]  flex  h-[88vh] flex-col items-center justify-between rounded-md border border-zinc-700 bg-zinc-800 px-1 py-6 text-zinc-400"
-        style={{ zIndex: 9999 }}
+        style={{ zIndex: 2 }}
       >
         <div className="flex flex-col items-center gap-5 ">
           <div
