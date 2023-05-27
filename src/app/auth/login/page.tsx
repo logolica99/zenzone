@@ -8,15 +8,15 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../../firebase.config";
-import { useCookies } from "react-cookie";
+
 
 export default function LoginPage(): React.JSX.Element {
   const provider = new GoogleAuthProvider();
 
-  const [_, setCookie] = useCookies();
+
 
   onAuthStateChanged(auth, (user) => {
-    console.log(user);
+
     if (user) {
       if (typeof window !== "undefined") {
         // browser code
@@ -85,7 +85,7 @@ export default function LoginPage(): React.JSX.Element {
                   GoogleAuthProvider.credentialFromResult(result);
                 const token = credential?.accessToken;
 
-                setCookie("authToken", token);
+               
               })
               .catch((error) => {
                 console.log(error);
