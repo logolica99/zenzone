@@ -1,15 +1,32 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 
 import ItemLayout from "./components/ItemLayout";
 import PomodoroComponent from "./components/Pomodoro";
 import MediaComponent from "./components/MediaComponent";
 import FilesComponent from "./components/FilesComponent";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "@/app/firebase.config";
+import { redirect } from "next/navigation";
+import Link from "next/link";
 
+export default function Rooms({
+  params: { roomNumber },
+}: {
+  params: { roomNumber: string };
+}) {
+  const authRef = useRef();
+  onAuthStateChanged(auth, (user) => {
+    console.log(user);
+    if (!user) {
+      if (typeof window !== "undefined") {
+        // browser code
+        window.location.replace("/auth/login");
+      }
 
-export default function Rooms({ params: { roomNumber } }: { params: { roomNumber: string } }) {
-    console.log(roomNumber)
-
+      // redirect("/auth/login");
+    }
+  });
   return (
     <main className="relative flex min-h-screen items-center justify-center bg-zinc-900">
       <ItemLayout title={"timer"} resizable={false}>
@@ -48,6 +65,13 @@ export default function Rooms({ params: { roomNumber } }: { params: { roomNumber
         >
           Jubaer Jami
         </a>
+        <button
+          onClick={() => {
+            signOut(auth).then(() => {});
+          }}
+        >
+          logout
+        </button>
       </div>
     </main>
   );

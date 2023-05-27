@@ -1,21 +1,31 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 
-import { signIn, useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
-import axios from "axios";
-import { useRouter } from "next/navigation";
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+} from "firebase/auth";
+import { auth } from "../../firebase.config";
+import { useCookies } from "react-cookie";
 
-export default function LoginPage() {
-  const router = useRouter();
-  useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_URL}/api/auth/session`).then((res) => {
-      if (res.data.user) {
-        router.push("/room/test_room");
+export default function LoginPage(): React.JSX.Element {
+  const provider = new GoogleAuthProvider();
+
+  const [_, setCookie] = useCookies();
+
+  onAuthStateChanged(auth, (user) => {
+    console.log(user);
+    if (user) {
+      if (typeof window !== "undefined") {
+        // browser code
+        window.location.replace("/room/test_room");
       }
-    });
-  }, []);
+
+      // redirect("/auth/login");
+    }
+  });
 
   return (
     <main className="relative flex min-h-screen flex-col items-center gap-8 bg-zinc-900 pt-40 md:pt-52">
@@ -64,14 +74,24 @@ export default function LoginPage() {
         </div>
       </Link>
 
-      <div
-        className="rounded-lg border border-zinc-700 bg-zinc-800 p-6 text-center text-zinc-400 shadow"
-        onClick={() => {
-          signIn("google");
-        }}
-      >
+      <div className="rounded-lg border border-zinc-700 bg-zinc-800 p-6 text-center text-zinc-400 shadow">
         <p>Sign in with</p>
-        <div className="my-6 flex flex-1 cursor-pointer items-center justify-center gap-3 rounded-md border border-zinc-700 py-3 transition duration-150 ease-in-out hover:bg-zinc-200/20">
+        <div
+          className="my-6 flex flex-1 cursor-pointer items-center justify-center gap-3 rounded-md border border-zinc-700 py-3 transition duration-150 ease-in-out hover:bg-zinc-200/20"
+          onClick={() => {
+            signInWithPopup(auth, provider)
+              .then((result) => {
+                const credential =
+                  GoogleAuthProvider.credentialFromResult(result);
+                const token = credential?.accessToken;
+
+                setCookie("authToken", token);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }}
+        >
           <svg
             width="18"
             height="18"

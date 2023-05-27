@@ -9,6 +9,7 @@ import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import "../../globals.css";
 import { Inter } from "next/font/google";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
@@ -22,13 +23,15 @@ export default function RootLayout({
       <title>Zenzone</title>
       <meta name="description" content="Unleash your Zen Mode!" />
       <body className={inter.className}>
-        <FullScreen handle={handle}>
-          <AppContextProvider>
-            <Nav handle={handle} />
-            <AppBar />
-            {children}
-          </AppContextProvider>
-        </FullScreen>
+
+          <FullScreen handle={handle}>
+            <AppContextProvider>
+              <Nav handle={handle} />
+              <AppBar />
+              {children}
+            </AppContextProvider>
+          </FullScreen>
+    
       </body>
     </html>
   );
