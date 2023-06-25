@@ -56,7 +56,7 @@ export default function Rooms({
       </ItemLayout>
 
       <div className="absolute bottom-0 left-0 right-0 p-4 text-center text-zinc-400">
-        Made with 💖 by{" "}
+        {/* Made with 💖 by{" "}
         <a
           href="https://github.com/logolica99"
           target="_blank"
@@ -64,13 +64,13 @@ export default function Rooms({
           className=" text-primary"
         >
           Jubaer Jami
-        </a>
+        </a> */}
         <button
           onClick={() => {
             signOut(auth);
           }}
         >
-          logout
+          Logout
         </button>
       </div>
     </main>

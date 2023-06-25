@@ -26,7 +26,7 @@ export default function Home() {
           Get Started
         </Link>
       </div>
-      <div className="absolute bottom-16 left-0 right-0 p-4 text-center text-zinc-400 md:bottom-0">
+      {/* <div className="absolute bottom-16 left-0 right-0 p-4 text-center text-zinc-400 md:bottom-0">
         Made with 💖 by{" "}
         <a
           href="https://github.com/logolica99"
@@ -36,7 +36,7 @@ export default function Home() {
         >
           Jubaer Jami
         </a>
-      </div>
+      </div> */}
     </main>
   );
 }
