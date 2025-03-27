@@ -4,12 +4,12 @@ import { AppContext } from "../../../Contexts/AppContext";
 import FeedbackModal from "./FeedbackModal";
 
 export default function AppBar() {
-  const { appIndex, appState } = useContext(AppContext);
+  const { appIndex, appState, collapsedState } = useContext(AppContext);
   const [appActiveState, setAppActiveState] = appState;
   const [apps, setApps] = appIndex;
+  const [isCollapsed, setIsCollapsed] = collapsedState;
 
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
 
   function openFeedbackModal() {
     setIsFeedbackModalOpen(true);
@@ -41,32 +41,32 @@ export default function AppBar() {
         setOpen={setIsFeedbackModalOpen}
       />
       <div
-        className="absolute left-4 mt-[10vh] flex h-[88vh] flex-col items-center justify-between rounded-md border border-zinc-700 bg-zinc-800 px-1 py-6 text-zinc-400 transition-all duration-300"
+        className="absolute left-4 mt-[10vh] flex h-[88vh] flex-col items-center justify-between rounded-md border border-zinc-700 bg-zinc-800 px-1 py-4 text-zinc-400 transition-all duration-300"
         style={{
           zIndex: 2,
-          width: isCollapsed ? "48px" : "64px",
+          width: isCollapsed ? "42px" : "56px",
         }}
       >
-        <div className="flex flex-col items-center gap-5">
+        <div className="flex flex-col items-center gap-3">
           {/* Collapse button */}
           <button
             onClick={() => setIsCollapsed(true)}
-            className="mb-2 rounded-md p-1 transition-all duration-300 hover:bg-zinc-200/20"
+            className="mb-1 rounded-md p-1 transition-all duration-300 hover:bg-zinc-200/20"
             title="Collapse"
           >
             <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-              <path
-                fillRule="evenodd"
-                d="M10 7h8a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-8zM9 7H6a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h3zM4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"
-                clipRule="evenodd"
-                className="fill-zinc-400"
-              ></path>
-            </svg>
+          <path
+            fillRule="evenodd"
+            d="M10 7h8a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-8zM9 7H6a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h3zM4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"
+            clipRule="evenodd"
+            className="fill-zinc-400"
+          ></path>
+        </svg>
           </button>
 
           {/* Existing buttons - modify each div to hide text when minimized */}
           <div
-            className="relative flex w-full cursor-pointer flex-col items-center rounded-md py-1 transition duration-150 ease-in-out hover:bg-zinc-200/20"
+            className="relative flex w-full cursor-pointer flex-col items-center rounded-md py-0.5 transition duration-150 ease-in-out hover:bg-zinc-200/20"
             onClick={() => {
               setAppActiveState({
                 ...appActiveState,
@@ -79,11 +79,11 @@ export default function AppBar() {
             }}
           >
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="27"
-              height="27"
+              width="20"
+              height="20"
               viewBox="2 2 20 20"
               fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 fill={`${appActiveState.timer ? "#F7A928" : "#a9a9a9"}`}
@@ -94,13 +94,13 @@ export default function AppBar() {
             <p
               className={`${
                 appActiveState.timer ? "text-primary" : "text-zinc-400"
-              } text-xs`}
+              } my-0.5 text-[10px]`}
             >
               Timer
             </p>
           </div>
           <div
-            className="relative flex w-full cursor-pointer flex-col items-center rounded-md  py-1  transition duration-150 ease-in-out hover:bg-zinc-200/20"
+            className="relative flex w-full cursor-pointer flex-col items-center rounded-md py-0.5 transition duration-150 ease-in-out hover:bg-zinc-200/20"
             onClick={() => {
               setAppActiveState({
                 ...appActiveState,
@@ -113,8 +113,8 @@ export default function AppBar() {
             }}
           >
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 27 21"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -144,13 +144,13 @@ export default function AppBar() {
             <p
               className={`${
                 appActiveState.media ? "text-primary" : "text-zinc-400"
-              } text-xs`}
+              } my-0.5 text-[10px]`}
             >
               Media
             </p>
           </div>
           <div
-            className="relative flex w-full cursor-pointer flex-col items-center rounded-md  py-1  transition duration-150 ease-in-out hover:bg-zinc-200/20"
+            className="relative flex w-full cursor-pointer flex-col items-center rounded-md py-0.5 transition duration-150 ease-in-out hover:bg-zinc-200/20"
             onClick={() => {
               setAppActiveState({
                 ...appActiveState,
@@ -163,8 +163,8 @@ export default function AppBar() {
             }}
           >
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 23 27"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -202,13 +202,13 @@ export default function AppBar() {
             <p
               className={`${
                 appActiveState.files ? "text-primary" : "text-zinc-400"
-              } mt-1 text-xs`}
+              } my-0.5 text-[10px]`}
             >
               Files
             </p>
           </div>
           <div
-            className="relative flex w-full cursor-pointer flex-col items-center rounded-md  py-1  transition duration-150 ease-in-out hover:bg-zinc-200/20"
+            className="relative flex w-full cursor-pointer flex-col items-center rounded-md py-0.5 transition duration-150 ease-in-out hover:bg-zinc-200/20"
             onClick={() => {
               setAppActiveState({
                 ...appActiveState,
@@ -222,8 +222,8 @@ export default function AppBar() {
             }}
           >
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 27 27"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -241,13 +241,13 @@ export default function AppBar() {
             <p
               className={`${
                 appActiveState.todo ? "text-primary" : "text-zinc-400"
-              } mt-1 text-xs`}
+              } my-0.5 text-[10px]`}
             >
               Todo
             </p>
           </div>
           <div
-            className="relative flex w-full cursor-pointer flex-col items-center rounded-md  py-1  transition duration-150 ease-in-out hover:bg-zinc-200/20"
+            className="relative flex w-full cursor-pointer flex-col items-center rounded-md py-0.5 transition duration-150 ease-in-out hover:bg-zinc-200/20"
             onClick={() => {
               setAppActiveState({
                 ...appActiveState,
@@ -260,8 +260,8 @@ export default function AppBar() {
             }}
           >
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 27 37"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -279,13 +279,13 @@ export default function AppBar() {
             <p
               className={`${
                 appActiveState.notes ? "text-primary" : "text-zinc-400"
-              } text-xs`}
+              } my-0.5 text-[10px]`}
             >
               Notes
             </p>
           </div>
           <div
-            className="relative flex  w-full cursor-pointer flex-col items-center rounded-md  py-1  transition duration-150 ease-in-out hover:bg-zinc-200/20"
+            className="relative flex  w-full cursor-pointer flex-col items-center rounded-md py-0.5 transition duration-150 ease-in-out hover:bg-zinc-200/20"
             onClick={() => {
               setAppActiveState({
                 ...appActiveState,
@@ -298,8 +298,8 @@ export default function AppBar() {
             }}
           >
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 25 20"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -413,7 +413,7 @@ export default function AppBar() {
             <p
               className={`${
                 appActiveState.calendar ? "text-primary" : "text-zinc-400"
-              } text-xs`}
+              } my-0.5 text-[10px]`}
             >
               Calendar
             </p>
@@ -421,11 +421,11 @@ export default function AppBar() {
         </div>
         <div
           onClick={openFeedbackModal}
-          className="flex  w-full  cursor-pointer items-center justify-center rounded-md py-2 transition duration-150 ease-in-out hover:bg-zinc-200/20"
+          className="flex w-full cursor-pointer items-center justify-center rounded-md py-1.5 transition duration-150 ease-in-out hover:bg-zinc-200/20"
         >
           <svg
-            width="24"
-            height="24"
+            width="20"
+            height="20"
             viewBox="0 0 32 32"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

@@ -12,7 +12,7 @@ export type IApps = {
 export type IAppsActiveState = {
   timer: boolean;
   media: boolean;
-  files: boolean;
+  files: boolean; 
   todo: boolean;
   notes: boolean;
   calendar: boolean;
@@ -24,6 +24,7 @@ type IAppContext = {
     IAppsActiveState,
     React.Dispatch<React.SetStateAction<IAppsActiveState>>
   ];
+  collapsedState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 };
 
 export const AppContext = createContext<IAppContext>({
@@ -42,6 +43,7 @@ export const AppContext = createContext<IAppContext>({
     },
     () => null,
   ],
+  collapsedState: [false, () => null],
 });
 
 export const AppContextProvider = ({
@@ -57,6 +59,7 @@ export const AppContextProvider = ({
     notes: 10,
     calendar: 11,
   });
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const [appActiveState, setAppActiveState] = useState({
     timer: false,
@@ -72,6 +75,7 @@ export const AppContextProvider = ({
       value={{
         appIndex: [apps, setApps],
         appState: [appActiveState, setAppActiveState],
+        collapsedState: [isCollapsed, setIsCollapsed],
       }}
     >
       {children}

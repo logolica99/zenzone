@@ -1,18 +1,20 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@emotion/react";
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import { ResizableBox } from "react-resizable";
 import { AppContext, IApps } from "../../../Contexts/AppContext";
 import { capitalizeFirstLetter } from "../helper";
+import "react-resizable/css/styles.css";
 
 interface IpropType {
   title: string;
   children: React.ReactNode;
   resizable: boolean;
 }
+
 type Position = {
   xRate: number;
   yRate: number;
@@ -37,6 +39,7 @@ export default function ItemLayout({
   });
 
   const [isDragging, setIsDragging] = useState(false);
+  const [dimensions, setDimensions] = useState({ width: 400, height: 400 });
 
   const {
     appIndex: [apps, setApps],
@@ -45,6 +48,13 @@ export default function ItemLayout({
 
   const onDrag = (_: DraggableEvent, data: DraggableData) => {
     setCurrentPosition({ xRate: data.x, yRate: data.y });
+  };
+
+  const onResize = (
+    _: any,
+    { size }: { size: { width: number; height: number } }
+  ) => {
+    setDimensions({ width: size.width, height: size.height });
   };
 
   const updateZIndex = () =>
@@ -69,7 +79,7 @@ export default function ItemLayout({
         handle="#handlebar"
       >
         <div
-          className={`absolute  rounded-md border border-zinc-700 bg-zinc-800 shadow ${
+          className={`absolute rounded-md border border-zinc-700 bg-zinc-800 shadow ${
             !appActiveState[title as keyof IApps] && "hidden"
           }`}
           style={{ zIndex: apps[title as keyof IApps] }}
@@ -78,14 +88,14 @@ export default function ItemLayout({
           <div
             className={`flex ${
               isDragging ? "cursor-grabbing" : "cursor-grab"
-            } items-center rounded-t-md bg-zinc-900  justify-between border-b border-zinc-700 px-3 `}
+            } items-center justify-between rounded-t-md border-b border-zinc-700 bg-zinc-900 px-3`}
             id="handlebar"
           >
-            <p className=" text-base  text-primary ">
+            <p className="text-base text-primary">
               {capitalizeFirstLetter(title)}
             </p>
             <div
-              className="cursor-pointer  duration-150 ease-in hover:rounded-full hover:bg-zinc-700 "
+              className="cursor-pointer duration-150 ease-in hover:rounded-full hover:bg-zinc-700"
               onClick={() => {
                 setAppActiveState({
                   ...appActiveState,
@@ -112,14 +122,19 @@ export default function ItemLayout({
             </div>
           </div>
           {resizable ? (
-            <ResizableBox
-              width={400}
-              height={400}
-              minConstraints={[400, 300]}
-              maxConstraints={[1000, 800]}
-            >
-              <div className="h-full px-3 py-2">{children}</div>
-            </ResizableBox>
+            <div style={{ width: dimensions.width, height: dimensions.height }}>
+              <ResizableBox
+                width={dimensions.width}
+                height={dimensions.height}
+                onResize={onResize}
+                minConstraints={[400, 300]}
+                maxConstraints={[1000, 800]}
+                axis="both"
+                resizeHandles={["se"]}
+              >
+                <div className="h-full px-3 py-2">{children}</div>
+              </ResizableBox>
+            </div>
           ) : (
             <div className="px-3">{children}</div>
           )}
