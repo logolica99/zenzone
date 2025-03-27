@@ -65,13 +65,7 @@ export default function Rooms({
         >
           Jubaer Jami
         </a> */}
-        <button
-          onClick={() => {
-            signOut(auth);
-          }}
-        >
-          Logout
-        </button>
+        
       </div>
     </main>
   );

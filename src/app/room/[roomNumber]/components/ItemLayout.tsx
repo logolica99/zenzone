@@ -38,13 +38,17 @@ export default function ItemLayout({
 
   const [isDragging, setIsDragging] = useState(false);
 
-  const { appIndex, appState } = useContext(AppContext);
-  const [appActiveState, setAppActiveState] = appState;
-  const [apps, setApps] = appIndex;
+  const {
+    appIndex: [apps, setApps],
+    appState: [appActiveState, setAppActiveState],
+  } = useContext(AppContext);
 
   const onDrag = (_: DraggableEvent, data: DraggableData) => {
     setCurrentPosition({ xRate: data.x, yRate: data.y });
   };
+
+  const updateZIndex = () =>
+    setApps({ ...apps, [title]: Math.max(...Object.values(apps)) + 1 });
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -57,11 +61,7 @@ export default function ItemLayout({
         onDrag={onDrag}
         onStart={() => {
           setIsDragging(true);
-
-          setApps({
-            ...apps,
-            [title]: Math.max(...Object.values(apps)) + 1,
-          });
+          updateZIndex();
         }}
         onStop={() => {
           setIsDragging(false);
@@ -73,24 +73,19 @@ export default function ItemLayout({
             !appActiveState[title as keyof IApps] && "hidden"
           }`}
           style={{ zIndex: apps[title as keyof IApps] }}
-          onClick={() => {
-            setApps({
-              ...apps,
-              [String(title)]: Math.max(...Object.values(apps)) + 1,
-            });
-          }}
+          onClick={updateZIndex}
         >
           <div
             className={`flex ${
               isDragging ? "cursor-grabbing" : "cursor-grab"
-            }  items-center justify-between border-b border-zinc-700 px-3 py-2`}
+            } items-center rounded-t-md bg-zinc-900  justify-between border-b border-zinc-700 px-3 `}
             id="handlebar"
           >
             <p className=" text-base  text-primary ">
               {capitalizeFirstLetter(title)}
             </p>
             <div
-              className="cursor-pointer p-2 duration-150 ease-in hover:rounded-full hover:bg-zinc-700 "
+              className="cursor-pointer  duration-150 ease-in hover:rounded-full hover:bg-zinc-700 "
               onClick={() => {
                 setAppActiveState({
                   ...appActiveState,
@@ -123,7 +118,7 @@ export default function ItemLayout({
               minConstraints={[400, 300]}
               maxConstraints={[1000, 800]}
             >
-              <div className="h-full px-3 py-3">{children}</div>
+              <div className="h-full px-3 py-2">{children}</div>
             </ResizableBox>
           ) : (
             <div className="px-3">{children}</div>

@@ -9,9 +9,29 @@ export default function AppBar() {
   const [apps, setApps] = appIndex;
 
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   function openFeedbackModal() {
     setIsFeedbackModalOpen(true);
+  }
+
+  if (isCollapsed) {
+    return (
+      <div
+        className="absolute left-4 mt-[10vh] cursor-pointer rounded-md border border-zinc-700 bg-zinc-800 p-2 transition-all duration-300"
+        onClick={() => setIsCollapsed(false)}
+        style={{ zIndex: 2 }}
+      >
+        <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+          <path
+            fillRule="evenodd"
+            d="M10 7h8a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-8zM9 7H6a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h3zM4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"
+            clipRule="evenodd"
+            className="fill-zinc-400"
+          ></path>
+        </svg>
+      </div>
+    );
   }
 
   return (
@@ -21,12 +41,32 @@ export default function AppBar() {
         setOpen={setIsFeedbackModalOpen}
       />
       <div
-        className="absolute left-4 mt-[10vh]  flex  h-[88vh] flex-col items-center justify-between rounded-md border border-zinc-700 bg-zinc-800 px-1 py-6 text-zinc-400"
-        style={{ zIndex: 2 }}
+        className="absolute left-4 mt-[10vh] flex h-[88vh] flex-col items-center justify-between rounded-md border border-zinc-700 bg-zinc-800 px-1 py-6 text-zinc-400 transition-all duration-300"
+        style={{
+          zIndex: 2,
+          width: isCollapsed ? "48px" : "64px",
+        }}
       >
-        <div className="flex flex-col items-center gap-5 ">
+        <div className="flex flex-col items-center gap-5">
+          {/* Collapse button */}
+          <button
+            onClick={() => setIsCollapsed(true)}
+            className="mb-2 rounded-md p-1 transition-all duration-300 hover:bg-zinc-200/20"
+            title="Collapse"
+          >
+            <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+              <path
+                fillRule="evenodd"
+                d="M10 7h8a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-8zM9 7H6a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h3zM4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"
+                clipRule="evenodd"
+                className="fill-zinc-400"
+              ></path>
+            </svg>
+          </button>
+
+          {/* Existing buttons - modify each div to hide text when minimized */}
           <div
-            className="relative flex w-full cursor-pointer flex-col items-center rounded-md  py-1  transition duration-150 ease-in-out hover:bg-zinc-200/20"
+            className="relative flex w-full cursor-pointer flex-col items-center rounded-md py-1 transition duration-150 ease-in-out hover:bg-zinc-200/20"
             onClick={() => {
               setAppActiveState({
                 ...appActiveState,
@@ -162,7 +202,7 @@ export default function AppBar() {
             <p
               className={`${
                 appActiveState.files ? "text-primary" : "text-zinc-400"
-              } text-xs`}
+              } mt-1 text-xs`}
             >
               Files
             </p>
@@ -201,7 +241,7 @@ export default function AppBar() {
             <p
               className={`${
                 appActiveState.todo ? "text-primary" : "text-zinc-400"
-              } text-xs`}
+              } mt-1 text-xs`}
             >
               Todo
             </p>

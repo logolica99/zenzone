@@ -3,15 +3,26 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { FullScreenHandle } from "react-full-screen";
+import { Menu } from "@headlessui/react";
+import { signOut } from "firebase/auth";
+import { auth } from "@/app/firebase.config";
 
 export default function Nav({ handle }: { handle: FullScreenHandle }) {
   const [roomName, setRoomName] = useState("Jane's Room");
   const [roomNameChangeActive, setRoomNameChangeActive] = useState(false);
 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
+
   return (
     <div
-      className="absolute flex h-[6vh] w-full  items-center justify-between border border-zinc-700 bg-zinc-800 px-6  text-zinc-400"
-      style={{ zIndex: 9999 }}
+      className="absolute left-1/2 top-4 flex h-12 -translate-x-1/2 items-center justify-between rounded-lg border border-zinc-700/30 bg-zinc-800/50 px-6 text-zinc-400 backdrop-blur-lg"
+      style={{ zIndex: 9999, width: "min(90%, 800px)" }}
     >
       {/* logo */}
       <Link href="/">
@@ -71,51 +82,24 @@ export default function Nav({ handle }: { handle: FullScreenHandle }) {
               }
             }}
             onBlur={() => setRoomNameChangeActive(false)}
-            className="bg-transparent text-center  text-primary outline-none "
+            className="bg-transparent text-center text-primary outline-none"
             placeholder="Enter room name"
             autoFocus
           />
         ) : (
-          <div className="flex items-center gap-3">
-            <p
-              className="text-primary"
-              onClick={() => setRoomNameChangeActive(true)}
-            >
-              {roomName}
-            </p>
-
-            <button
-              title="Share link"
-              className="rounded bg-primary px-4 text-zinc-800 ring-zinc-700 transition  duration-150 ease-in-out focus:ring active:opacity-60"
-            >
-              Share
-            </button>
-            <div className="border-l-2 border-zinc-700 pl-3">
-              <div
-                className="cursor-pointer rounded px-2 py-1 transition duration-150 ease-in-out  hover:bg-zinc-200/20 active:opacity-60"
-                title="Start a video call"
-              >
-                <svg
-                  width="23"
-                  height="15"
-                  viewBox="0 0 23 15"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M21.621 0.656039L16.72 3.81704V2.86004C16.72 1.58404 15.676 0.540039 14.4 0.540039H2.79998C1.52398 0.540039 0.47998 1.58404 0.47998 2.86004V12.14C0.47998 13.416 1.52398 14.46 2.79998 14.46H14.4C15.676 14.46 16.72 13.416 16.72 12.14V11.183L21.621 14.344C22.172 14.634 22.52 14.141 22.52 13.851V1.12004C22.52 0.830039 22.201 0.308039 21.621 0.656039ZM15.56 12.14C15.56 12.778 15.038 13.3 14.4 13.3H2.79998C2.16198 13.3 1.63998 12.778 1.63998 12.14V2.86004C1.63998 2.22204 2.16198 1.70004 2.79998 1.70004H14.4C15.038 1.70004 15.56 2.22204 15.56 2.86004V12.14ZM21.36 12.807L16.72 9.82004V5.18004L21.36 2.19304V12.807Z"
-                    fill="#F7A928"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
+          <p
+            className="cursor-pointer text-primary"
+            onClick={() => setRoomNameChangeActive(true)}
+          >
+            {roomName}
+          </p>
         )}
       </div>
+
       {/* user buttons */}
       <div className="flex items-center gap-3">
         <div
-          className=" cursor-pointer rounded px-2 py-1 transition duration-150 ease-in-out hover:bg-zinc-200/20  active:opacity-60"
+          className="cursor-pointer rounded px-2 py-1 transition duration-150 ease-in-out hover:bg-zinc-200/20 active:opacity-60"
           title="Share link"
         >
           <svg
@@ -126,7 +110,24 @@ export default function Nav({ handle }: { handle: FullScreenHandle }) {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M16.75 14.9996C15.55 14.9996 14.475 15.5746 13.8 16.4496L7.725 12.9246C8.1 11.9996 8.1 10.9746 7.725 10.0496L13.8 6.52461C14.475 7.39961 15.55 7.97461 16.75 7.97461C18.825 7.97461 20.5 6.29961 20.5 4.22461C20.5 2.14961 18.825 0.474609 16.75 0.474609C14.675 0.474609 13 2.14961 13 4.22461C13 4.72461 13.1 5.22461 13.275 5.64961L7.2 9.19961C6.5 8.32461 5.45 7.74961 4.25 7.74961C2.175 7.74961 0.5 9.42461 0.5 11.4996C0.5 13.5746 2.175 15.2496 4.25 15.2496C5.45 15.2496 6.525 14.6746 7.2 13.7996L13.275 17.3246C13.1 17.7496 13 18.2496 13 18.7496C13 20.8246 14.675 22.4996 16.75 22.4996C18.825 22.4996 20.5 20.8246 20.5 18.7496C20.5 16.6746 18.825 14.9996 16.75 14.9996ZM16.75 1.49961C18.275 1.49961 19.5 2.72461 19.5 4.24961C19.5 5.77461 18.275 6.99961 16.75 6.99961C15.225 6.99961 14 5.77461 14 4.24961C14 2.72461 15.225 1.49961 16.75 1.49961ZM4.25 14.2496C2.725 14.2496 1.5 13.0246 1.5 11.4996C1.5 9.97461 2.725 8.74961 4.25 8.74961C5.775 8.74961 7 9.97461 7 11.4996C7 13.0246 5.775 14.2496 4.25 14.2496ZM16.75 21.4996C15.225 21.4996 14 20.2746 14 18.7496C14 17.2246 15.225 15.9996 16.75 15.9996C18.275 15.9996 19.5 17.2246 19.5 18.7496C19.5 20.2746 18.275 21.4996 16.75 21.4996Z"
+              d="M16.75 14.9996C15.55 14.9996 14.475 15.5746 13.8 16.4496L7.725 12.9246C8.1 11.9996 8.1 10.9746 7.725 10.0496L13.8 6.52461C14.475 7.39961 15.55 7.97461 16.75 7.97461C18.825 7.97461 20.5 6.29961 20.5 4.22461C20.5 2.14961 18.825 0.474609 16.75 0.474609C14.675 0.474609 13 2.14961 13 4.22461C13 4.72461 13.1 5.22461 13.275 5.64961L7.2 9.19961C6.5 8.32461 5.45 7.74961 4.25 7.74961C2.175 7.74961 0.5 9.42461 0.5 11.4996C0.5 13.5746 2.175 15.2496 4.25 15.2496C5.45 15.2496 6.525 14.6746 7.2 13.7996L13.275 17.3246C13.1 17.7496 13 18.2496 13 18.7496C13 20.8246 14.675 22.4996 16.75 22.4996C18.825 22.4996 20.5 20.8246 20.5 18.7496C20.5 16.6746 18.825 14.9996 16.75 14.9996Z"
+              fill="#F7A928"
+            />
+          </svg>
+        </div>
+        <div
+          className="cursor-pointer rounded px-2 py-1 transition duration-150 ease-in-out hover:bg-zinc-200/20 active:opacity-60"
+          title="Start a video call"
+        >
+          <svg
+            width="23"
+            height="15"
+            viewBox="0 0 23 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M21.621 0.656039L16.72 3.81704V2.86004C16.72 1.58404 15.676 0.540039 14.4 0.540039H2.79998C1.52398 0.540039 0.47998 1.58404 0.47998 2.86004V12.14C0.47998 13.416 1.52398 14.46 2.79998 14.46H14.4C15.676 14.46 16.72 13.416 16.72 12.14V11.183L21.621 14.344C22.172 14.634 22.52 14.141 22.52 13.851V1.12004C22.52 0.830039 22.201 0.308039 21.621 0.656039Z"
               fill="#F7A928"
             />
           </svg>
@@ -219,20 +220,39 @@ export default function Nav({ handle }: { handle: FullScreenHandle }) {
           </div>
         )}
         <div className="border-l-2 border-zinc-700 pl-3">
-          <div className=" cursor-pointer rounded px-2 py-1 transition duration-150 ease-in-out hover:bg-zinc-200/20  active:opacity-60">
-            <svg
-              width="19"
-              height="19"
-              viewBox="0 0 19 19"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9.47339 10.5689C12.1734 10.5689 14.3387 8.37687 14.3387 5.7036C14.3387 3.03034 12.1734 0.811523 9.47339 0.811523C6.77339 0.811523 4.60804 3.0036 4.60804 5.67687C4.60804 8.35014 6.77339 10.5689 9.47339 10.5689ZM9.47339 2.09469C11.4516 2.09469 13.0556 3.69865 13.0556 5.67687C13.0556 7.65509 11.4516 9.25905 9.47339 9.25905C7.49517 9.25905 5.89121 7.68182 5.89121 5.7036C5.89121 3.72538 7.49517 2.09469 9.47339 2.09469ZM1.02586 18.1878H17.9744C18.3219 18.1878 18.616 17.8937 18.616 17.5462C18.616 14.1779 15.8625 11.4244 12.4942 11.4244H6.50606C3.13774 11.4244 0.384277 14.1779 0.384277 17.5462C0.384277 17.8937 0.678337 18.1878 1.02586 18.1878ZM6.50606 12.7076H12.4942C14.9536 12.7076 16.9585 14.5254 17.2793 16.9046H1.72091C2.0417 14.5254 4.04665 12.7076 6.50606 12.7076Z"
-                fill="#F7A928"
-              />
-            </svg>
-          </div>
+          <Menu as="div" className="relative">
+            <Menu.Button className="cursor-pointer rounded px-2 py-1 transition duration-150 ease-in-out hover:bg-zinc-200/20 active:opacity-60">
+              <svg
+                width="19"
+                height="19"
+                viewBox="0 0 19 19"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.47339 10.5689C12.1734 10.5689 14.3387 8.37687 14.3387 5.7036C14.3387 3.03034 12.1734 0.811523 9.47339 0.811523C6.77339 0.811523 4.60804 3.0036 4.60804 5.67687C4.60804 8.35014 6.77339 10.5689 9.47339 10.5689ZM9.47339 2.09469C11.4516 2.09469 13.0556 3.69865 13.0556 5.67687C13.0556 7.65509 11.4516 9.25905 9.47339 9.25905C7.49517 9.25905 5.89121 7.68182 5.89121 5.7036C5.89121 3.72538 7.49517 2.09469 9.47339 2.09469ZM1.02586 18.1878H17.9744C18.3219 18.1878 18.616 17.8937 18.616 17.5462C18.616 14.1779 15.8625 11.4244 12.4942 11.4244H6.50606C3.13774 11.4244 0.384277 14.1779 0.384277 17.5462C0.384277 17.8937 0.678337 18.1878 1.02586 18.1878ZM6.50606 12.7076H12.4942C14.9536 12.7076 16.9585 14.5254 17.2793 16.9046H1.72091C2.0417 14.5254 4.04665 12.7076 6.50606 12.7076Z"
+                  fill="#F7A928"
+                />
+              </svg>
+            </Menu.Button>
+            <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-zinc-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Item>
+                {({ active }) => (
+                  <div className="px-2 py-2">
+                    <button
+                      onClick={handleLogout}
+                      className={`${
+                        active ? "bg-zinc-700" : ""
+                      }  block w-full rounded-lg px-2 py-1 text-left text-sm text-zinc-200`}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </Menu.Item>
+              {/* Add more menu items here if needed */}
+            </Menu.Items>
+          </Menu>
         </div>
       </div>
     </div>
