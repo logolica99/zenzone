@@ -9,9 +9,9 @@ export default {
       },
       colors: {
         primary: "#F7A928",
-        secondary:"#FCD635"
+        secondary: "#FCD635",
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
 };

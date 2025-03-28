@@ -9,6 +9,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "@/app/firebase.config";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import TodoComponent from "./components/TodoComponent";
 
 export default function Rooms({
   params: { roomNumber },
@@ -17,7 +18,7 @@ export default function Rooms({
 }) {
   const authRef = useRef();
   onAuthStateChanged(auth, (user) => {
-    console.log(user);
+
     if (!user) {
       if (typeof window !== "undefined") {
         // browser code
@@ -42,9 +43,7 @@ export default function Rooms({
         </div>
       </ItemLayout>
       <ItemLayout title={"todo"} resizable={false}>
-        <div className="my-3 flex h-[300px] w-[300px]  flex-col items-center justify-center rounded-md border border-zinc-700 text-primary">
-          <p>Coming soon!</p>
-        </div>
+        <TodoComponent />
       </ItemLayout>
       <ItemLayout title={"calendar"} resizable={false}>
         <div className="my-3 flex h-[300px] w-[300px]  flex-col items-center justify-center rounded-md border border-zinc-700 text-primary">
@@ -65,7 +64,6 @@ export default function Rooms({
         >
           Jubaer Jami
         </a> */}
-        
       </div>
     </main>
   );
