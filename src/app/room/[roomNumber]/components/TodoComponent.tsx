@@ -146,11 +146,12 @@ export default function TodoComponent() {
           )}
         </button>
       </form>
-
-      <div className="flex flex-col gap-2 max-h-[300px] overflow-y-auto 
-        scrollbar-thin scrollbar-thumb-primary scrollbar-track-zinc-800 
-        scrollbar-thumb-rounded-full scrollbar-track-rounded-full
-        hover:scrollbar-thumb-primary/70">
+      <div
+        className="scrollbar-thin scrollbar-thumb-primary scrollbar-track-zinc-800 scrollbar-thumb-rounded-full scrollbar-track-rounded-full 
+        hover:scrollbar-thumb-primary/70 flex max-h-[300px] 
+        flex-col gap-2
+        overflow-y-auto"
+      >
         {todoList.map((todoItem) => (
           <div
             key={todoItem.id}
