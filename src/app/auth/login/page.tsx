@@ -20,7 +20,7 @@ export default function LoginPage(): React.JSX.Element {
     if (user) {
       if (typeof window !== "undefined") {
         // browser code
-        window.location.replace("/room/test_room");
+        window.location.replace("/zones");
       }
 
       // redirect("/auth/login");
