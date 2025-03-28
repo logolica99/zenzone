@@ -1,3 +1,5 @@
+"use client";
+import React from "react";
 export default function ZoneCardSkeleton() {
   return (
     <div className="overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900">
