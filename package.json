@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo --port 4333",
+    "dev": "next dev  --port 4333",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -34,6 +34,7 @@
     "react-dom": "18.2.0",
     "react-draggable": "^4.4.5",
     "react-full-screen": "^1.1.1",
+    "react-hot-toast": "^2.5.2",
     "react-player": "^2.12.0",
     "react-resizable": "^3.0.4",
     "tailwind-scrollbar": "^4.0.1",

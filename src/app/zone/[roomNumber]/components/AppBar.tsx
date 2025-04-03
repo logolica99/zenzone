@@ -39,6 +39,7 @@ export default function AppBar() {
       <FeedbackModal
         isOpen={isFeedbackModalOpen}
         setOpen={setIsFeedbackModalOpen}
+     
       />
       <div
         className="absolute left-4 mt-[10vh] flex h-[88vh] flex-col items-center justify-between rounded-md border border-zinc-700 bg-zinc-800 px-1 py-4 text-zinc-400 transition-all duration-300"

@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import { doc, setDoc, serverTimestamp, collection } from "firebase/firestore";
+import { db, auth } from "@/app/firebase.config";
+import { User } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+import { useParams } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 type IpropType = {
   isOpen: boolean;
@@ -12,14 +18,58 @@ export default function FeedbackModal({ isOpen, setOpen }: IpropType) {
     setOpen(false);
   }
 
-  const handleFeedbackSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-  };
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
+  const { roomNumber } = useParams();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [feedback, setFeedback] = React.useState("");
+
+  const handleFeedbackSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+
+    if (!currentUser) {
+      alert("Please login to submit feedback");
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      const feedbackRef = doc(
+        db,
+        "feedbacks",
+        currentUser.uid,
+        roomNumber,
+        new Date().getTime().toString()
+      );
+      await setDoc(feedbackRef, {
+        feedback,
+        createdAt: serverTimestamp(),
+        userId: currentUser.uid,
+        roomId: roomNumber,
+      });
+      toast.success("Feedback submitted successfully");
+      setFeedback("");
+      closeModal();
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+      toast.error("Failed to submit feedback. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div>
+    
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -55,6 +105,7 @@ export default function FeedbackModal({ isOpen, setOpen }: IpropType) {
                     as="h3"
                     className="text-lg font-medium leading-6 text-primary"
                   >
+       
                     Feedback
                   </Dialog.Title>
                   <form onSubmit={handleFeedbackSubmit}>
@@ -84,9 +135,10 @@ export default function FeedbackModal({ isOpen, setOpen }: IpropType) {
                     <div className="mt-4 flex w-full justify-end">
                       <button
                         type="submit"
-                        className="inline-flex justify-center rounded-md border-2 border-transparent bg-zinc-900 px-6 py-2 text-sm  font-medium  text-primary shadow ring-primary transition duration-150 ease-in-out hover:ring focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-2"
+                        disabled={isSubmitting}
+                        className="inline-flex justify-center rounded-md border-2 border-transparent bg-zinc-900 px-6 py-2 text-sm font-medium text-primary shadow ring-primary transition duration-150 ease-in-out hover:ring focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-2"
                       >
-                        Send
+                        {isSubmitting ? "Sending..." : "Send"}
                       </button>
                     </div>
                   </form>
